@@ -257,4 +257,20 @@ public class MainFrame implements ConsoleEventHandler, ProcessEventHandler {
 			}
 		});
 	}
+
+	@Override
+	public void onAccessDenied(Process sender) {
+		final JTextArea txt = this.txtConsole;
+		final String s = String.format(
+				"%s is denied the access the Console.\n", sender.getName());
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				txt.append(s);
+				txt.validate();
+				txt.repaint();
+			}
+		});
+	}
 }

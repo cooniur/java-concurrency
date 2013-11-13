@@ -14,16 +14,16 @@ public class Console {
 	private volatile Console.Access	_access		= Access.ALLOW;
 	public ConsoleEventHandler		_handler	= null;
 
-	public synchronized void write(Process.Type type, String str)
+	public synchronized void write(Process p, String str)
 			throws InterruptedException {
 
-		if (Process.Type.USER == type) {
+		if (p.getProcessType() == Process.Type.USER) {
 			while (Access.DENY == this.getAccess()) {
+				p.TriggerOnAccessDenied();
 				this.wait();
 			}
 		}
 		this._onWrite(str);
-		this.notifyAll();
 	}
 
 	public synchronized Access getAccess() {

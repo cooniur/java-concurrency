@@ -15,7 +15,8 @@ public class Process implements Runnable {
 	private Console				_console;
 	private Process.Type		_type;
 	private boolean				_running;
-	private ProcessEventHandler	_handler	= null;
+	private ProcessEventHandler	_handler				= null;
+	private boolean				_consoleAccessDenied	= false;
 
 	/*
 	 * (non-Javadoc)
@@ -34,8 +35,9 @@ public class Process implements Runnable {
 				if (!this._running)
 					break;
 
-				Thread.sleep(1000);
-				this._console.write(this._type, str);
+				Thread.sleep(2000);
+				this._console.write(this, str);
+				this._consoleAccessDenied = false;
 			} catch (InterruptedException e) {
 				this._onInterrupted(e);
 			}
@@ -75,9 +77,21 @@ public class Process implements Runnable {
 			this._handler.onInterrupted(this, e);
 	}
 
+	private void _onAccessDenied() {
+		if (this._handler != null)
+			this._handler.onAccessDenied(this);
+	}
+
 	private void _onFinished() {
 		if (this._handler != null)
 			this._handler.onFinished(this);
+	}
+
+	public void TriggerOnAccessDenied() {
+		if (!this._consoleAccessDenied) {
+			this._onAccessDenied();
+			this._consoleAccessDenied = true;
+		}
 	}
 
 	@Override
