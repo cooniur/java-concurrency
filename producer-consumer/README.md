@@ -1,0 +1,3 @@
+Producer Consumer problem
+
+A Producer-Consumer application. This demo shows how shared data between the producer and consumer is handled. The two threads communicate using a shared object. Coordination is essential: the consumer thread must not attempt to retrieve the data before the producer thread has delivered it, and the producer thread must not attempt to deliver new data if the consumer hasn't retrieved the old data.
