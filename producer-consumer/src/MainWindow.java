@@ -27,16 +27,6 @@ public class MainWindow implements ProducerEventHandler, ConsumerEventHandler {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		// ProductBuffer pb = new ProductBuffer();
-		// Producer p = new Producer(pb);
-		// Consumer c = new Consumer(pb);
-		// p.setEventHandler(handler);
-		// c.setEventHandle(handler);
-		// Thread producer_t = new Thread(p);
-		// Thread consumer_t = new Thread(c);
-		// producer_t.start();
-		// consumer_t.start();
-
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -167,7 +157,7 @@ public class MainWindow implements ProducerEventHandler, ConsumerEventHandler {
 	@Override
 	public void onConsumerDisplay(int value) {
 		final JLabel lbl = this.lblConsumerValue;
-		final int v = (value + 1) * 2;
+		final int v = (value + 1);
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -189,8 +179,7 @@ public class MainWindow implements ProducerEventHandler, ConsumerEventHandler {
 			@Override
 			public void run() {
 				btnStart.setEnabled(true);
-				btnStop.setEnabled(false);
-				ex.printStackTrace(System.err);
+				btnStop.setEnabled(false);	       
 			}
 		});
 	}
@@ -220,8 +209,7 @@ public class MainWindow implements ProducerEventHandler, ConsumerEventHandler {
 			@Override
 			public void run() {
 				btnStart.setEnabled(true);
-				btnStop.setEnabled(false);
-				ex.printStackTrace(System.err);
+				btnStop.setEnabled(false);			       
 			}
 		});
 	}
